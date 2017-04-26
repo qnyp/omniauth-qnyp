@@ -1,6 +1,7 @@
 # Omniauth::Qnyp
 
-This is the official OmniAuth strategy for authenticating to qnyp. To use it, you'll need to sign up for an OAuth2 Application ID and Secret on the [qnyp Applications Page](https://qnyp.com/oauth/applications/new).
+This is the official OmniAuth strategy for authenticating to qnyp.
+To use it, you'll need to register your application on [qnyp Applications Page](https://qnyp.com/oauth/applications/new) (Login required).
 
 ## Using This Strategy
 
@@ -10,32 +11,34 @@ First start by adding this gem to your Gemfile:
 gem 'omniauth-qnyp'
 ```
 
-Next, tell OmniAuth about this provider. For a Rails app, your config/initializers/omniauth.rb file should look like this:
+Next, tell OmniAuth about this provider.
+For a Rails app, your `config/initializers/omniauth.rb` file should look like this:
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :qnyp, 'API_KEY', 'API_SECRET'
+  provider :qnyp, ENV.fetch('QNYP_APP_ID'), ENV.fetch('QNYP_APP_SECRET'), scope: 'public'
 end
 ```
 
-Replace 'API_KEY' and 'API_SECRET' with the appropriate values you obtained earlier.
-
-If you are using Devise then it will look like this:
-
-```ruby
-Devise.setup do |config|
-  config.omniauth :qnyp, ENV['QNYP_APP_ID'], ENV['QNYP_APP_SECRET']
-end
-```
+Replace `QNYP_APP_ID` and `QNYP_APP_SECRET` with your application ID and application secret.
 
 ## Scopes
 
 qnyp API lets you set scopes to provide granular access to different types of data.
-If you want to use API which requires `write` scope, specify `scope:` option:
+
+If you want to access public information by API, specify `scope:` option with `public`:
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :qnyp, 'API_KEY', 'API_SECRET', scope: 'write'
+  provider :qnyp, '...', '...', scope: 'public'
+end
+```
+
+Or, if you want to access public information and write a log by API, specify `scope:` option with `public write`:
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :qnyp, '...', '...', scope: 'public write'
 end
 ```
 
@@ -45,7 +48,18 @@ OmniAuth will return an authentication hash similar to the example below. Learn 
 
 ```ruby
 {
-  "provider"=>"qnyp"
+  "provider" => "qnyp",
+  "uid" => 1, # User ID
+  "info" => {
+    "language" => "ja", # Preffered language for UI (ja or en)
+    "name" => "junya", # Name for display
+    "profile_image_url" => "http://example.com/profile_image.png", # Profile image URL
+    "username" => "junya", # Username (unique identifier)
+  },
+  "credentials" => {
+    "expires" => false,
+    "token" => "...", # Access token
+  }
 }
 ```
 
