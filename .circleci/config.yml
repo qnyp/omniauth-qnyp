@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/ruby:latest-node-browsers-legacy
+       - image: circleci/ruby:2.6.0-node-browsers-legacy
 
     working_directory: ~/repo
 
@@ -21,9 +21,12 @@ jobs:
           - v1-dependencies-
 
       - run:
+          name: install latest bundler
+          command: gem install bundler
+
+      - run:
           name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
           paths:
