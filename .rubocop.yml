@@ -3,7 +3,7 @@ AllCops:
   DisplayStyleGuide: true
   Exclude:
     - 'spec/**/*'
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   UseCache: false
 
 Lint/AmbiguousBlockAssociation:
@@ -33,11 +33,14 @@ Style/FrozenStringLiteralComment:
 Style/GuardClause:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
   Enabled: false
