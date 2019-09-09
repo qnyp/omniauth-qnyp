@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'omniauth-qnyp'
   spec.version       = OmniAuth::Qnyp::VERSION
   spec.authors       = ['Junya Ogura']
-  spec.email         = ['junyaogura@gmail.com']
+  spec.email         = ['junya@qnyp.com']
 
   spec.summary       = 'OmniAuth Strategy for the qnyp OAuth2 API'
   spec.description   = 'OmniAuth Strategy for the qnyp OAuth2 API'
