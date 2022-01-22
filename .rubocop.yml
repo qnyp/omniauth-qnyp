@@ -2,6 +2,10 @@ inherit_mode:
   merge:
     - Include
 
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
