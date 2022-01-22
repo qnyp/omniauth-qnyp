@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'omniauth-oauth2'
 
 module OmniAuth
@@ -13,7 +15,7 @@ module OmniAuth
         :client_options,
         site: API_URL,
         authorize_url: "#{SITE_URL}/oauth/authorize",
-        token_url: "#{API_URL}/oauth/token"
+        token_url: "#{API_URL}/oauth/token",
       )
 
       uid { raw_info['id'] }

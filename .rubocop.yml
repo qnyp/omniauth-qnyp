@@ -1,46 +1,28 @@
+inherit_mode:
+  merge:
+    - Include
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
+  Include:
+    - 'lib/**/*'
   Exclude:
+    - 'bin/*'
     - 'spec/**/*'
-  TargetRubyVersion: 2.5
-  UseCache: false
+    - 'vendor/**/*'
+  NewCops: enable
+  TargetRubyVersion: 2.7
 
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
+Naming/FileName:
+  Exclude:
+    - 'lib/omniauth-qnyp.rb'
 
-Metrics/AbcSize:
-  Max: 35
-
-Metrics/ClassLength:
-  Max: 150
-
-Metrics/LineLength:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 20
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/EmptyElse:
-  EnforcedStyle: empty
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/GuardClause:
-  Enabled: false
-
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
 
 Style/TrailingCommaInArrayLiteral:
-  Enabled: false
+  EnforcedStyleForMultiline: consistent_comma
 
 Style/TrailingCommaInHashLiteral:
-  Enabled: false
+  EnforcedStyleForMultiline: consistent_comma

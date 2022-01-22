@@ -4,39 +4,41 @@ jobs:
   build:
     resource_class: small
     docker:
-      - image: circleci/ruby:2.6.4
-        environment:
-          BUNDLE_JOBS: 4
-          BUNDLE_RETRY: 3
+      - image: cimg/ruby:3.1.0
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
 
-    working_directory: ~/repo
+    environment:
+      BUNDLE_PATH: "vendor/bundle"
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+      BUNDLE_CLEAN: "true"
 
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "omniauth-qnyp.gemspec" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
       - run:
-          name: Configure Bundler
+          name: Install latest bundler
           command: |
             gem update --system
             gem install bundler
 
+      - restore_cache:
+          keys:
+            - v1-gem-{{ checksum "omniauth-qnyp.gemspec"  }}-{{ .Branch }}
+            - v1-gem-{{ checksum "omniauth-qnyp.gemspec"  }}
+            - v1-gem
+
       - run:
-          name: install dependencies
-          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+          name: Install dependencies
+          command: bundle install
 
       - save_cache:
+          key: v1-gem-{{ checksum "omniauth-qnyp.gemspec"  }}-{{ .Branch }}
           paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "omniauth-qnyp.gemspec" }}
+            - vendor/bundle
 
-      # run tests!
       - run:
-          name: run tests
+          name: run tests (rspec)
           command: bundle exec rake spec
