@@ -1,5 +1,7 @@
 # Omniauth::Qnyp
 
+[![Ruby](https://github.com/qnyp/omniauth-qnyp/actions/workflows/ruby.yml/badge.svg)](https://github.com/qnyp/omniauth-qnyp/actions/workflows/ruby.yml)
+
 This is the official OmniAuth strategy for authenticating to qnyp.
 To use it, you'll need to register your application on [qnyp Applications Page](https://qnyp.com/oauth/applications/new) (Login required).
 
